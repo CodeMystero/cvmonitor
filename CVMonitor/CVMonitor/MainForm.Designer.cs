@@ -51,26 +51,24 @@
             this.chartA = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPageGrid = new System.Windows.Forms.TabPage();
             this.dataGridViewData = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Result = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gridViewDataDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPageError = new System.Windows.Forms.TabPage();
             this.dataGridViewDeviceLog = new System.Windows.Forms.DataGridView();
-            this.dateTimeDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.strCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gridViewDataDeviceLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPageLog = new System.Windows.Forms.TabPage();
             this.dataGridViewComm = new System.Windows.Forms.DataGridView();
-            this.dateTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataFlowDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.messageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gridViewDataCommBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tabPageCalibration = new System.Windows.Forms.TabPage();
+            this.labelInterval = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.labelZeroCurrent = new System.Windows.Forms.Label();
+            this.labelHighCurrent = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.btnZeroCurrent = new System.Windows.Forms.Button();
+            this.btnHighCurrent = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxHighCurrent = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxSensor = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.buttonCheckVersion = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.buttonSetTime = new System.Windows.Forms.Button();
@@ -81,7 +79,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.buttonLogData = new System.Windows.Forms.Button();
             this.buttonStopGathering = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonScaleApply = new System.Windows.Forms.Button();
@@ -90,8 +87,24 @@
             this.textBoxMin = new System.Windows.Forms.TextBox();
             this.buttonLimit = new System.Windows.Forms.Button();
             this.comboBoxSamplingTime = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.comboBoxSensor = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.current0DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.current1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.voltage0DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.voltage1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.resultDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gridViewDataDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clientIPAddressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.errorCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gridViewDataDeviceLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gridViewDataCommBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPageGraphV.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartV)).BeginInit();
@@ -99,30 +112,33 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartA)).BeginInit();
             this.tabPageGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewData)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewDataDataBindingSource)).BeginInit();
             this.tabPageError.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDeviceLog)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewDataDeviceLogBindingSource)).BeginInit();
             this.tabPageLog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewComm)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewDataCommBindingSource)).BeginInit();
+            this.tabPageCalibration.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewDataDataBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewDataDeviceLogBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewDataCommBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(812, 7);
+            this.label1.Location = new System.Drawing.Point(1508, 14);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(25, 21);
+            this.label1.Size = new System.Drawing.Size(46, 42);
             this.label1.TabIndex = 2;
             this.label1.Text = "IP";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // buttonConnect
             // 
-            this.buttonConnect.Location = new System.Drawing.Point(814, 55);
+            this.buttonConnect.Location = new System.Drawing.Point(1512, 110);
+            this.buttonConnect.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonConnect.Name = "buttonConnect";
-            this.buttonConnect.Size = new System.Drawing.Size(75, 23);
+            this.buttonConnect.Size = new System.Drawing.Size(139, 46);
             this.buttonConnect.TabIndex = 3;
             this.buttonConnect.Text = "Connect";
             this.buttonConnect.UseVisualStyleBackColor = true;
@@ -131,9 +147,10 @@
             // buttonDisconnect
             // 
             this.buttonDisconnect.Enabled = false;
-            this.buttonDisconnect.Location = new System.Drawing.Point(893, 55);
+            this.buttonDisconnect.Location = new System.Drawing.Point(1658, 110);
+            this.buttonDisconnect.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonDisconnect.Name = "buttonDisconnect";
-            this.buttonDisconnect.Size = new System.Drawing.Size(77, 23);
+            this.buttonDisconnect.Size = new System.Drawing.Size(143, 46);
             this.buttonDisconnect.TabIndex = 4;
             this.buttonDisconnect.Text = "Disconnect";
             this.buttonDisconnect.UseVisualStyleBackColor = true;
@@ -141,9 +158,10 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(905, 7);
+            this.label2.Location = new System.Drawing.Point(1681, 14);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 21);
+            this.label2.Size = new System.Drawing.Size(58, 42);
             this.label2.TabIndex = 6;
             this.label2.Text = "Port";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -151,9 +169,10 @@
             // buttonStartGathering
             // 
             this.buttonStartGathering.Enabled = false;
-            this.buttonStartGathering.Location = new System.Drawing.Point(814, 285);
+            this.buttonStartGathering.Location = new System.Drawing.Point(1512, 570);
+            this.buttonStartGathering.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonStartGathering.Name = "buttonStartGathering";
-            this.buttonStartGathering.Size = new System.Drawing.Size(75, 23);
+            this.buttonStartGathering.Size = new System.Drawing.Size(139, 46);
             this.buttonStartGathering.TabIndex = 11;
             this.buttonStartGathering.Text = "Start";
             this.buttonStartGathering.UseVisualStyleBackColor = true;
@@ -162,17 +181,19 @@
             // textBoxPort
             // 
             this.textBoxPort.Enabled = false;
-            this.textBoxPort.Location = new System.Drawing.Point(909, 31);
+            this.textBoxPort.Location = new System.Drawing.Point(1688, 62);
+            this.textBoxPort.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(61, 21);
+            this.textBoxPort.Size = new System.Drawing.Size(110, 35);
             this.textBoxPort.TabIndex = 12;
             this.textBoxPort.Text = "5000";
             // 
             // textBoxIP
             // 
-            this.textBoxIP.Location = new System.Drawing.Point(814, 31);
+            this.textBoxIP.Location = new System.Drawing.Point(1512, 62);
+            this.textBoxIP.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBoxIP.Name = "textBoxIP";
-            this.textBoxIP.Size = new System.Drawing.Size(90, 21);
+            this.textBoxIP.Size = new System.Drawing.Size(164, 35);
             this.textBoxIP.TabIndex = 13;
             this.textBoxIP.Text = "192.168.1.128";
             // 
@@ -183,20 +204,23 @@
             this.tabControl1.Controls.Add(this.tabPageGrid);
             this.tabControl1.Controls.Add(this.tabPageError);
             this.tabControl1.Controls.Add(this.tabPageLog);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Controls.Add(this.tabPageCalibration);
+            this.tabControl1.Location = new System.Drawing.Point(22, 24);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(790, 431);
+            this.tabControl1.Size = new System.Drawing.Size(1467, 862);
             this.tabControl1.TabIndex = 14;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPageGraphV
             // 
             this.tabPageGraphV.Controls.Add(this.chartV);
-            this.tabPageGraphV.Location = new System.Drawing.Point(4, 22);
+            this.tabPageGraphV.Location = new System.Drawing.Point(8, 39);
+            this.tabPageGraphV.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tabPageGraphV.Name = "tabPageGraphV";
-            this.tabPageGraphV.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGraphV.Size = new System.Drawing.Size(782, 405);
+            this.tabPageGraphV.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tabPageGraphV.Size = new System.Drawing.Size(1451, 815);
             this.tabPageGraphV.TabIndex = 4;
             this.tabPageGraphV.Text = "Graph V";
             this.tabPageGraphV.UseVisualStyleBackColor = true;
@@ -211,7 +235,8 @@
             legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
             legend1.Name = "Legend1";
             this.chartV.Legends.Add(legend1);
-            this.chartV.Location = new System.Drawing.Point(6, 8);
+            this.chartV.Location = new System.Drawing.Point(11, 16);
+            this.chartV.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.chartV.Name = "chartV";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -225,17 +250,18 @@
             series2.Name = "series4";
             this.chartV.Series.Add(series1);
             this.chartV.Series.Add(series2);
-            this.chartV.Size = new System.Drawing.Size(770, 368);
+            this.chartV.Size = new System.Drawing.Size(1430, 736);
             this.chartV.TabIndex = 17;
             this.chartV.Text = "chart2";
             // 
             // tabPageGraphA
             // 
             this.tabPageGraphA.Controls.Add(this.chartA);
-            this.tabPageGraphA.Location = new System.Drawing.Point(4, 22);
+            this.tabPageGraphA.Location = new System.Drawing.Point(8, 39);
+            this.tabPageGraphA.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tabPageGraphA.Name = "tabPageGraphA";
-            this.tabPageGraphA.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGraphA.Size = new System.Drawing.Size(782, 405);
+            this.tabPageGraphA.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tabPageGraphA.Size = new System.Drawing.Size(1451, 815);
             this.tabPageGraphA.TabIndex = 5;
             this.tabPageGraphA.Text = "Graph A";
             this.tabPageGraphA.UseVisualStyleBackColor = true;
@@ -250,7 +276,8 @@
             legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
             legend2.Name = "Legend1";
             this.chartA.Legends.Add(legend2);
-            this.chartA.Location = new System.Drawing.Point(6, 8);
+            this.chartA.Location = new System.Drawing.Point(11, 16);
+            this.chartA.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.chartA.Name = "chartA";
             series3.ChartArea = "ChartArea1";
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -264,16 +291,17 @@
             series4.Name = "series2";
             this.chartA.Series.Add(series3);
             this.chartA.Series.Add(series4);
-            this.chartA.Size = new System.Drawing.Size(770, 368);
+            this.chartA.Size = new System.Drawing.Size(1430, 736);
             this.chartA.TabIndex = 17;
             this.chartA.Text = "chart3";
             // 
             // tabPageGrid
             // 
             this.tabPageGrid.Controls.Add(this.dataGridViewData);
-            this.tabPageGrid.Location = new System.Drawing.Point(4, 22);
+            this.tabPageGrid.Location = new System.Drawing.Point(8, 39);
+            this.tabPageGrid.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tabPageGrid.Name = "tabPageGrid";
-            this.tabPageGrid.Size = new System.Drawing.Size(782, 405);
+            this.tabPageGrid.Size = new System.Drawing.Size(1451, 815);
             this.tabPageGrid.TabIndex = 6;
             this.tabPageGrid.Text = "Grid";
             this.tabPageGrid.UseVisualStyleBackColor = true;
@@ -284,72 +312,28 @@
             this.dataGridViewData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7,
-            this.Result});
+            this.dataGridViewTextBoxColumn13,
+            this.current0DataGridViewTextBoxColumn,
+            this.current1DataGridViewTextBoxColumn,
+            this.voltage0DataGridViewTextBoxColumn,
+            this.voltage1DataGridViewTextBoxColumn,
+            this.resultDataGridViewTextBoxColumn});
             this.dataGridViewData.DataSource = this.gridViewDataDataBindingSource;
-            this.dataGridViewData.Location = new System.Drawing.Point(6, 8);
+            this.dataGridViewData.Location = new System.Drawing.Point(11, 16);
+            this.dataGridViewData.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.dataGridViewData.Name = "dataGridViewData";
             this.dataGridViewData.RowHeadersWidth = 62;
             this.dataGridViewData.RowTemplate.Height = 23;
-            this.dataGridViewData.Size = new System.Drawing.Size(773, 371);
+            this.dataGridViewData.Size = new System.Drawing.Size(1436, 742);
             this.dataGridViewData.TabIndex = 33;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "DateTime";
-            this.dataGridViewTextBoxColumn3.HeaderText = "DateTime";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Current0";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Current CH 0";
-            this.dataGridViewTextBoxColumn4.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Current1";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Current CH 1";
-            this.dataGridViewTextBoxColumn5.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "Voltage0";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Voltage CH 0";
-            this.dataGridViewTextBoxColumn6.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "Voltage1";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Voltage CH 1";
-            this.dataGridViewTextBoxColumn7.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            // 
-            // Result
-            // 
-            this.Result.DataPropertyName = "Result";
-            this.Result.HeaderText = "Result";
-            this.Result.MinimumWidth = 8;
-            this.Result.Name = "Result";
-            // 
-            // gridViewDataDataBindingSource
-            // 
-            this.gridViewDataDataBindingSource.DataSource = typeof(CVMonitorExample.GridViewDataData);
             // 
             // tabPageError
             // 
             this.tabPageError.Controls.Add(this.dataGridViewDeviceLog);
-            this.tabPageError.Location = new System.Drawing.Point(4, 22);
+            this.tabPageError.Location = new System.Drawing.Point(8, 39);
+            this.tabPageError.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tabPageError.Name = "tabPageError";
-            this.tabPageError.Size = new System.Drawing.Size(782, 405);
+            this.tabPageError.Size = new System.Drawing.Size(1451, 815);
             this.tabPageError.TabIndex = 7;
             this.tabPageError.Text = "Error";
             this.tabPageError.UseVisualStyleBackColor = true;
@@ -360,57 +344,27 @@
             this.dataGridViewDeviceLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewDeviceLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewDeviceLog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dateTimeDataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn1,
-            this.strCodeDataGridViewTextBoxColumn,
-            this.dataGridViewTextBoxColumn2});
+            this.dataGridViewTextBoxColumn11,
+            this.clientIPAddressDataGridViewTextBoxColumn,
+            this.dataGridViewTextBoxColumn12,
+            this.errorCodeDataGridViewTextBoxColumn});
             this.dataGridViewDeviceLog.DataSource = this.gridViewDataDeviceLogBindingSource;
-            this.dataGridViewDeviceLog.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewDeviceLog.Location = new System.Drawing.Point(17, 6);
+            this.dataGridViewDeviceLog.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.dataGridViewDeviceLog.Name = "dataGridViewDeviceLog";
             this.dataGridViewDeviceLog.RowHeadersWidth = 62;
             this.dataGridViewDeviceLog.RowTemplate.Height = 23;
-            this.dataGridViewDeviceLog.Size = new System.Drawing.Size(770, 370);
+            this.dataGridViewDeviceLog.Size = new System.Drawing.Size(1430, 740);
             this.dataGridViewDeviceLog.TabIndex = 32;
-            // 
-            // dateTimeDataGridViewTextBoxColumn3
-            // 
-            this.dateTimeDataGridViewTextBoxColumn3.DataPropertyName = "DateTime";
-            this.dateTimeDataGridViewTextBoxColumn3.HeaderText = "DateTime";
-            this.dateTimeDataGridViewTextBoxColumn3.MinimumWidth = 8;
-            this.dateTimeDataGridViewTextBoxColumn3.Name = "dateTimeDataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "ClientIPAddress";
-            this.dataGridViewTextBoxColumn1.HeaderText = "ClientIPAddress";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // strCodeDataGridViewTextBoxColumn
-            // 
-            this.strCodeDataGridViewTextBoxColumn.DataPropertyName = "strCode";
-            this.strCodeDataGridViewTextBoxColumn.HeaderText = "strCode";
-            this.strCodeDataGridViewTextBoxColumn.MinimumWidth = 8;
-            this.strCodeDataGridViewTextBoxColumn.Name = "strCodeDataGridViewTextBoxColumn";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "ErrorCode";
-            this.dataGridViewTextBoxColumn2.HeaderText = "ErrorCode";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // gridViewDataDeviceLogBindingSource
-            // 
-            this.gridViewDataDeviceLogBindingSource.DataSource = typeof(CVMonitorExample.GridViewDataDeviceLog);
             // 
             // tabPageLog
             // 
             this.tabPageLog.Controls.Add(this.dataGridViewComm);
-            this.tabPageLog.Location = new System.Drawing.Point(4, 22);
+            this.tabPageLog.Location = new System.Drawing.Point(8, 39);
+            this.tabPageLog.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tabPageLog.Name = "tabPageLog";
-            this.tabPageLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLog.Size = new System.Drawing.Size(782, 405);
+            this.tabPageLog.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tabPageLog.Size = new System.Drawing.Size(1451, 815);
             this.tabPageLog.TabIndex = 0;
             this.tabPageLog.Text = "Log";
             this.tabPageLog.UseVisualStyleBackColor = true;
@@ -421,51 +375,183 @@
             this.dataGridViewComm.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewComm.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewComm.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dateTimeDataGridViewTextBoxColumn,
-            this.dataFlowDataGridViewTextBoxColumn,
-            this.messageDataGridViewTextBoxColumn});
+            this.dataGridViewTextBoxColumn8,
+            this.dataGridViewTextBoxColumn9,
+            this.dataGridViewTextBoxColumn10});
             this.dataGridViewComm.DataSource = this.gridViewDataCommBindingSource;
-            this.dataGridViewComm.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewComm.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewComm.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.dataGridViewComm.Name = "dataGridViewComm";
             this.dataGridViewComm.RowHeadersWidth = 62;
             this.dataGridViewComm.RowTemplate.Height = 23;
-            this.dataGridViewComm.Size = new System.Drawing.Size(776, 376);
+            this.dataGridViewComm.Size = new System.Drawing.Size(1441, 752);
             this.dataGridViewComm.TabIndex = 31;
             // 
-            // dateTimeDataGridViewTextBoxColumn
+            // tabPageCalibration
             // 
-            this.dateTimeDataGridViewTextBoxColumn.DataPropertyName = "DateTime";
-            this.dateTimeDataGridViewTextBoxColumn.FillWeight = 60F;
-            this.dateTimeDataGridViewTextBoxColumn.HeaderText = "DateTime";
-            this.dateTimeDataGridViewTextBoxColumn.MinimumWidth = 8;
-            this.dateTimeDataGridViewTextBoxColumn.Name = "dateTimeDataGridViewTextBoxColumn";
+            this.tabPageCalibration.Controls.Add(this.labelInterval);
+            this.tabPageCalibration.Controls.Add(this.label13);
+            this.tabPageCalibration.Controls.Add(this.labelZeroCurrent);
+            this.tabPageCalibration.Controls.Add(this.labelHighCurrent);
+            this.tabPageCalibration.Controls.Add(this.label11);
+            this.tabPageCalibration.Controls.Add(this.label10);
+            this.tabPageCalibration.Controls.Add(this.btnZeroCurrent);
+            this.tabPageCalibration.Controls.Add(this.btnHighCurrent);
+            this.tabPageCalibration.Controls.Add(this.label9);
+            this.tabPageCalibration.Controls.Add(this.textBoxHighCurrent);
+            this.tabPageCalibration.Controls.Add(this.label8);
+            this.tabPageCalibration.Controls.Add(this.textBoxSensor);
+            this.tabPageCalibration.Controls.Add(this.label6);
+            this.tabPageCalibration.Location = new System.Drawing.Point(8, 39);
+            this.tabPageCalibration.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageCalibration.Name = "tabPageCalibration";
+            this.tabPageCalibration.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageCalibration.Size = new System.Drawing.Size(1451, 815);
+            this.tabPageCalibration.TabIndex = 8;
+            this.tabPageCalibration.Text = "Calibration";
+            this.tabPageCalibration.UseVisualStyleBackColor = true;
             // 
-            // dataFlowDataGridViewTextBoxColumn
+            // labelInterval
             // 
-            this.dataFlowDataGridViewTextBoxColumn.DataPropertyName = "DataFlow";
-            this.dataFlowDataGridViewTextBoxColumn.FillWeight = 30F;
-            this.dataFlowDataGridViewTextBoxColumn.HeaderText = "DataFlow";
-            this.dataFlowDataGridViewTextBoxColumn.MinimumWidth = 8;
-            this.dataFlowDataGridViewTextBoxColumn.Name = "dataFlowDataGridViewTextBoxColumn";
+            this.labelInterval.Location = new System.Drawing.Point(236, 366);
+            this.labelInterval.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelInterval.Name = "labelInterval";
+            this.labelInterval.Size = new System.Drawing.Size(188, 42);
+            this.labelInterval.TabIndex = 30;
+            this.labelInterval.Text = "0";
+            this.labelInterval.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // messageDataGridViewTextBoxColumn
+            // label13
             // 
-            this.messageDataGridViewTextBoxColumn.DataPropertyName = "Message";
-            this.messageDataGridViewTextBoxColumn.FillWeight = 200F;
-            this.messageDataGridViewTextBoxColumn.HeaderText = "Message";
-            this.messageDataGridViewTextBoxColumn.MinimumWidth = 8;
-            this.messageDataGridViewTextBoxColumn.Name = "messageDataGridViewTextBoxColumn";
+            this.label13.Location = new System.Drawing.Point(37, 366);
+            this.label13.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(188, 42);
+            this.label13.TabIndex = 29;
+            this.label13.Text = "Interval";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // gridViewDataCommBindingSource
+            // labelZeroCurrent
             // 
-            this.gridViewDataCommBindingSource.DataSource = typeof(CVMonitorExample.GridViewDataComm);
+            this.labelZeroCurrent.Location = new System.Drawing.Point(236, 306);
+            this.labelZeroCurrent.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelZeroCurrent.Name = "labelZeroCurrent";
+            this.labelZeroCurrent.Size = new System.Drawing.Size(188, 42);
+            this.labelZeroCurrent.TabIndex = 28;
+            this.labelZeroCurrent.Text = "0";
+            this.labelZeroCurrent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelHighCurrent
+            // 
+            this.labelHighCurrent.Location = new System.Drawing.Point(236, 238);
+            this.labelHighCurrent.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelHighCurrent.Name = "labelHighCurrent";
+            this.labelHighCurrent.Size = new System.Drawing.Size(188, 42);
+            this.labelHighCurrent.TabIndex = 27;
+            this.labelHighCurrent.Text = "0";
+            this.labelHighCurrent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label11
+            // 
+            this.label11.Location = new System.Drawing.Point(37, 306);
+            this.label11.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(188, 42);
+            this.label11.TabIndex = 26;
+            this.label11.Text = "Zero Current";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label10
+            // 
+            this.label10.Location = new System.Drawing.Point(37, 238);
+            this.label10.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(188, 42);
+            this.label10.TabIndex = 25;
+            this.label10.Text = "High Current";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnZeroCurrent
+            // 
+            this.btnZeroCurrent.Enabled = false;
+            this.btnZeroCurrent.Location = new System.Drawing.Point(219, 126);
+            this.btnZeroCurrent.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnZeroCurrent.Name = "btnZeroCurrent";
+            this.btnZeroCurrent.Size = new System.Drawing.Size(139, 42);
+            this.btnZeroCurrent.TabIndex = 23;
+            this.btnZeroCurrent.Text = "Capture";
+            this.btnZeroCurrent.UseVisualStyleBackColor = true;
+            this.btnZeroCurrent.Click += new System.EventHandler(this.btnZeroCurrent_Click);
+            // 
+            // btnHighCurrent
+            // 
+            this.btnHighCurrent.Enabled = false;
+            this.btnHighCurrent.Location = new System.Drawing.Point(316, 70);
+            this.btnHighCurrent.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnHighCurrent.Name = "btnHighCurrent";
+            this.btnHighCurrent.Size = new System.Drawing.Size(139, 38);
+            this.btnHighCurrent.TabIndex = 22;
+            this.btnHighCurrent.Text = "Capture";
+            this.btnHighCurrent.UseVisualStyleBackColor = true;
+            this.btnHighCurrent.Click += new System.EventHandler(this.btnHighCurrent_Click);
+            // 
+            // label9
+            // 
+            this.label9.Location = new System.Drawing.Point(20, 126);
+            this.label9.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(188, 42);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "Zero Current(A)";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBoxHighCurrent
+            // 
+            this.textBoxHighCurrent.Enabled = false;
+            this.textBoxHighCurrent.Location = new System.Drawing.Point(219, 70);
+            this.textBoxHighCurrent.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textBoxHighCurrent.Name = "textBoxHighCurrent";
+            this.textBoxHighCurrent.Size = new System.Drawing.Size(86, 35);
+            this.textBoxHighCurrent.TabIndex = 19;
+            this.textBoxHighCurrent.Text = "10";
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(20, 66);
+            this.label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(188, 42);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "High Current(A)";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBoxSensor
+            // 
+            this.textBoxSensor.Enabled = false;
+            this.textBoxSensor.Location = new System.Drawing.Point(219, 28);
+            this.textBoxSensor.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textBoxSensor.Name = "textBoxSensor";
+            this.textBoxSensor.Size = new System.Drawing.Size(86, 35);
+            this.textBoxSensor.TabIndex = 17;
+            this.textBoxSensor.Text = "10";
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(20, 22);
+            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(188, 42);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Sensor(A)";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // buttonCheckVersion
             // 
             this.buttonCheckVersion.Enabled = false;
-            this.buttonCheckVersion.Location = new System.Drawing.Point(814, 139);
+            this.buttonCheckVersion.Location = new System.Drawing.Point(1512, 278);
+            this.buttonCheckVersion.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonCheckVersion.Name = "buttonCheckVersion";
-            this.buttonCheckVersion.Size = new System.Drawing.Size(156, 23);
+            this.buttonCheckVersion.Size = new System.Drawing.Size(290, 46);
             this.buttonCheckVersion.TabIndex = 32;
             this.buttonCheckVersion.Text = "Version Request";
             this.buttonCheckVersion.UseVisualStyleBackColor = true;
@@ -473,9 +559,10 @@
             // 
             // label7
             // 
-            this.label7.Location = new System.Drawing.Point(812, 237);
+            this.label7.Location = new System.Drawing.Point(1508, 474);
+            this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(91, 21);
+            this.label7.Size = new System.Drawing.Size(169, 42);
             this.label7.TabIndex = 28;
             this.label7.Text = "Sampling Time";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -483,9 +570,10 @@
             // buttonSetTime
             // 
             this.buttonSetTime.Enabled = false;
-            this.buttonSetTime.Location = new System.Drawing.Point(907, 258);
+            this.buttonSetTime.Location = new System.Drawing.Point(1684, 516);
+            this.buttonSetTime.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonSetTime.Name = "buttonSetTime";
-            this.buttonSetTime.Size = new System.Drawing.Size(63, 23);
+            this.buttonSetTime.Size = new System.Drawing.Size(117, 46);
             this.buttonSetTime.TabIndex = 26;
             this.buttonSetTime.Text = "Apply";
             this.buttonSetTime.UseVisualStyleBackColor = true;
@@ -494,9 +582,10 @@
             // buttonCheckTime
             // 
             this.buttonCheckTime.Enabled = false;
-            this.buttonCheckTime.Location = new System.Drawing.Point(814, 111);
+            this.buttonCheckTime.Location = new System.Drawing.Point(1512, 222);
+            this.buttonCheckTime.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonCheckTime.Name = "buttonCheckTime";
-            this.buttonCheckTime.Size = new System.Drawing.Size(156, 23);
+            this.buttonCheckTime.Size = new System.Drawing.Size(290, 46);
             this.buttonCheckTime.TabIndex = 22;
             this.buttonCheckTime.Text = "Sampling Time Request";
             this.buttonCheckTime.UseVisualStyleBackColor = true;
@@ -505,9 +594,10 @@
             // buttonCheckIP
             // 
             this.buttonCheckIP.Enabled = false;
-            this.buttonCheckIP.Location = new System.Drawing.Point(814, 83);
+            this.buttonCheckIP.Location = new System.Drawing.Point(1512, 166);
+            this.buttonCheckIP.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonCheckIP.Name = "buttonCheckIP";
-            this.buttonCheckIP.Size = new System.Drawing.Size(156, 23);
+            this.buttonCheckIP.Size = new System.Drawing.Size(290, 46);
             this.buttonCheckIP.TabIndex = 19;
             this.buttonCheckIP.Text = "IP adress Request";
             this.buttonCheckIP.UseVisualStyleBackColor = true;
@@ -516,9 +606,10 @@
             // buttonIPSetting
             // 
             this.buttonIPSetting.Enabled = false;
-            this.buttonIPSetting.Location = new System.Drawing.Point(907, 213);
+            this.buttonIPSetting.Location = new System.Drawing.Point(1684, 426);
+            this.buttonIPSetting.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonIPSetting.Name = "buttonIPSetting";
-            this.buttonIPSetting.Size = new System.Drawing.Size(63, 23);
+            this.buttonIPSetting.Size = new System.Drawing.Size(117, 46);
             this.buttonIPSetting.TabIndex = 16;
             this.buttonIPSetting.Text = "Apply";
             this.buttonIPSetting.UseVisualStyleBackColor = true;
@@ -527,17 +618,19 @@
             // textBoxSetIP
             // 
             this.textBoxSetIP.Enabled = false;
-            this.textBoxSetIP.Location = new System.Drawing.Point(814, 216);
+            this.textBoxSetIP.Location = new System.Drawing.Point(1512, 432);
+            this.textBoxSetIP.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBoxSetIP.Name = "textBoxSetIP";
-            this.textBoxSetIP.Size = new System.Drawing.Size(89, 21);
+            this.textBoxSetIP.Size = new System.Drawing.Size(162, 35);
             this.textBoxSetIP.TabIndex = 15;
             this.textBoxSetIP.Text = "192.168.0.128";
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(812, 194);
+            this.label5.Location = new System.Drawing.Point(1508, 388);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(25, 21);
+            this.label5.Size = new System.Drawing.Size(46, 42);
             this.label5.TabIndex = 14;
             this.label5.Text = "IP";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -545,9 +638,10 @@
             // buttonLogData
             // 
             this.buttonLogData.Enabled = false;
-            this.buttonLogData.Location = new System.Drawing.Point(814, 167);
+            this.buttonLogData.Location = new System.Drawing.Point(1512, 334);
+            this.buttonLogData.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonLogData.Name = "buttonLogData";
-            this.buttonLogData.Size = new System.Drawing.Size(156, 23);
+            this.buttonLogData.Size = new System.Drawing.Size(290, 46);
             this.buttonLogData.TabIndex = 12;
             this.buttonLogData.Text = "Log Data Request";
             this.buttonLogData.UseVisualStyleBackColor = true;
@@ -556,24 +650,21 @@
             // buttonStopGathering
             // 
             this.buttonStopGathering.Enabled = false;
-            this.buttonStopGathering.Location = new System.Drawing.Point(893, 285);
+            this.buttonStopGathering.Location = new System.Drawing.Point(1658, 570);
+            this.buttonStopGathering.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonStopGathering.Name = "buttonStopGathering";
-            this.buttonStopGathering.Size = new System.Drawing.Size(77, 23);
+            this.buttonStopGathering.Size = new System.Drawing.Size(143, 46);
             this.buttonStopGathering.TabIndex = 15;
             this.buttonStopGathering.Text = "Stop";
             this.buttonStopGathering.UseVisualStyleBackColor = true;
             this.buttonStopGathering.Click += new System.EventHandler(this.buttonStopGathering_Click);
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 600000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(5, 16);
+            this.label3.Location = new System.Drawing.Point(9, 32);
+            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 21);
+            this.label3.Size = new System.Drawing.Size(71, 42);
             this.label3.TabIndex = 33;
             this.label3.Text = "Min";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -585,11 +676,11 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.textBoxMin);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(814, 369);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Location = new System.Drawing.Point(1512, 738);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(156, 67);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(290, 134);
             this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Graph Y Scale";
@@ -597,9 +688,10 @@
             // buttonScaleApply
             // 
             this.buttonScaleApply.Enabled = false;
-            this.buttonScaleApply.Location = new System.Drawing.Point(104, 16);
+            this.buttonScaleApply.Location = new System.Drawing.Point(193, 32);
+            this.buttonScaleApply.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonScaleApply.Name = "buttonScaleApply";
-            this.buttonScaleApply.Size = new System.Drawing.Size(46, 45);
+            this.buttonScaleApply.Size = new System.Drawing.Size(85, 90);
             this.buttonScaleApply.TabIndex = 35;
             this.buttonScaleApply.Text = "Apply";
             this.buttonScaleApply.UseVisualStyleBackColor = true;
@@ -608,9 +700,10 @@
             // textBoxMax
             // 
             this.textBoxMax.Enabled = false;
-            this.textBoxMax.Location = new System.Drawing.Point(49, 43);
+            this.textBoxMax.Location = new System.Drawing.Point(91, 86);
+            this.textBoxMax.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBoxMax.Name = "textBoxMax";
-            this.textBoxMax.Size = new System.Drawing.Size(50, 21);
+            this.textBoxMax.Size = new System.Drawing.Size(89, 35);
             this.textBoxMax.TabIndex = 36;
             this.textBoxMax.Text = "50.000";
             this.textBoxMax.TextChanged += new System.EventHandler(this.textBoxMax_TextChanged);
@@ -618,9 +711,10 @@
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(5, 43);
+            this.label4.Location = new System.Drawing.Point(9, 86);
+            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 21);
+            this.label4.Size = new System.Drawing.Size(71, 42);
             this.label4.TabIndex = 35;
             this.label4.Text = "Max";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -628,9 +722,10 @@
             // textBoxMin
             // 
             this.textBoxMin.Enabled = false;
-            this.textBoxMin.Location = new System.Drawing.Point(49, 19);
+            this.textBoxMin.Location = new System.Drawing.Point(91, 38);
+            this.textBoxMin.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBoxMin.Name = "textBoxMin";
-            this.textBoxMin.Size = new System.Drawing.Size(50, 21);
+            this.textBoxMin.Size = new System.Drawing.Size(89, 35);
             this.textBoxMin.TabIndex = 35;
             this.textBoxMin.Text = "0.000";
             this.textBoxMin.TextChanged += new System.EventHandler(this.textBoxMin_TextChanged);
@@ -638,9 +733,10 @@
             // 
             // buttonLimit
             // 
-            this.buttonLimit.Location = new System.Drawing.Point(814, 341);
+            this.buttonLimit.Location = new System.Drawing.Point(1512, 682);
+            this.buttonLimit.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonLimit.Name = "buttonLimit";
-            this.buttonLimit.Size = new System.Drawing.Size(156, 23);
+            this.buttonLimit.Size = new System.Drawing.Size(290, 46);
             this.buttonLimit.TabIndex = 35;
             this.buttonLimit.Text = "Limit Setting";
             this.buttonLimit.UseVisualStyleBackColor = true;
@@ -663,38 +759,145 @@
             "50",
             "100",
             "200"});
-            this.comboBoxSamplingTime.Location = new System.Drawing.Point(814, 260);
+            this.comboBoxSamplingTime.Location = new System.Drawing.Point(1512, 520);
+            this.comboBoxSamplingTime.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.comboBoxSamplingTime.Name = "comboBoxSamplingTime";
-            this.comboBoxSamplingTime.Size = new System.Drawing.Size(90, 20);
+            this.comboBoxSamplingTime.Size = new System.Drawing.Size(164, 32);
             this.comboBoxSamplingTime.TabIndex = 36;
             // 
-            // comboBox1
+            // comboBoxSensor
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "On",
-            "Off"});
-            this.comboBox1.Location = new System.Drawing.Point(893, 314);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(77, 20);
-            this.comboBox1.TabIndex = 37;
+            this.comboBoxSensor.Enabled = false;
+            this.comboBoxSensor.FormattingEnabled = true;
+            this.comboBoxSensor.Items.AddRange(new object[] {
+            "Off",
+            "On"});
+            this.comboBoxSensor.Location = new System.Drawing.Point(1658, 628);
+            this.comboBoxSensor.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.comboBoxSensor.Name = "comboBoxSensor";
+            this.comboBoxSensor.Size = new System.Drawing.Size(140, 32);
+            this.comboBoxSensor.TabIndex = 38;
             // 
-            // label6
+            // label12
             // 
-            this.label6.Location = new System.Drawing.Point(812, 313);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(77, 21);
-            this.label6.TabIndex = 38;
-            this.label6.Text = "Sensor";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label12.Location = new System.Drawing.Point(1508, 628);
+            this.label12.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(143, 42);
+            this.label12.TabIndex = 37;
+            this.label12.Text = "Sensor";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.DataPropertyName = "DateTime";
+            this.dataGridViewTextBoxColumn13.HeaderText = "DateTime";
+            this.dataGridViewTextBoxColumn13.MinimumWidth = 10;
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            // 
+            // current0DataGridViewTextBoxColumn
+            // 
+            this.current0DataGridViewTextBoxColumn.DataPropertyName = "Current0";
+            this.current0DataGridViewTextBoxColumn.HeaderText = "Current CH 0";
+            this.current0DataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.current0DataGridViewTextBoxColumn.Name = "current0DataGridViewTextBoxColumn";
+            // 
+            // current1DataGridViewTextBoxColumn
+            // 
+            this.current1DataGridViewTextBoxColumn.DataPropertyName = "Current1";
+            this.current1DataGridViewTextBoxColumn.HeaderText = "Current CH 1";
+            this.current1DataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.current1DataGridViewTextBoxColumn.Name = "current1DataGridViewTextBoxColumn";
+            // 
+            // voltage0DataGridViewTextBoxColumn
+            // 
+            this.voltage0DataGridViewTextBoxColumn.DataPropertyName = "Voltage0";
+            this.voltage0DataGridViewTextBoxColumn.HeaderText = "Voltage CH 0";
+            this.voltage0DataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.voltage0DataGridViewTextBoxColumn.Name = "voltage0DataGridViewTextBoxColumn";
+            // 
+            // voltage1DataGridViewTextBoxColumn
+            // 
+            this.voltage1DataGridViewTextBoxColumn.DataPropertyName = "Voltage1";
+            this.voltage1DataGridViewTextBoxColumn.HeaderText = "Voltage CH 1";
+            this.voltage1DataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.voltage1DataGridViewTextBoxColumn.Name = "voltage1DataGridViewTextBoxColumn";
+            // 
+            // resultDataGridViewTextBoxColumn
+            // 
+            this.resultDataGridViewTextBoxColumn.DataPropertyName = "Result";
+            this.resultDataGridViewTextBoxColumn.HeaderText = "Result";
+            this.resultDataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.resultDataGridViewTextBoxColumn.Name = "resultDataGridViewTextBoxColumn";
+            // 
+            // gridViewDataDataBindingSource
+            // 
+            this.gridViewDataDataBindingSource.DataSource = typeof(CVMonitorExample.GridViewDataData);
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.DataPropertyName = "DateTime";
+            this.dataGridViewTextBoxColumn11.HeaderText = "DateTime";
+            this.dataGridViewTextBoxColumn11.MinimumWidth = 10;
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            // 
+            // clientIPAddressDataGridViewTextBoxColumn
+            // 
+            this.clientIPAddressDataGridViewTextBoxColumn.DataPropertyName = "ClientIPAddress";
+            this.clientIPAddressDataGridViewTextBoxColumn.HeaderText = "ClientIPAddress";
+            this.clientIPAddressDataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.clientIPAddressDataGridViewTextBoxColumn.Name = "clientIPAddressDataGridViewTextBoxColumn";
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.DataPropertyName = "strCode";
+            this.dataGridViewTextBoxColumn12.HeaderText = "strCode";
+            this.dataGridViewTextBoxColumn12.MinimumWidth = 10;
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            // 
+            // errorCodeDataGridViewTextBoxColumn
+            // 
+            this.errorCodeDataGridViewTextBoxColumn.DataPropertyName = "ErrorCode";
+            this.errorCodeDataGridViewTextBoxColumn.HeaderText = "ErrorCode";
+            this.errorCodeDataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.errorCodeDataGridViewTextBoxColumn.Name = "errorCodeDataGridViewTextBoxColumn";
+            // 
+            // gridViewDataDeviceLogBindingSource
+            // 
+            this.gridViewDataDeviceLogBindingSource.DataSource = typeof(CVMonitorExample.GridViewDataDeviceLog);
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "DateTime";
+            this.dataGridViewTextBoxColumn8.HeaderText = "DateTime";
+            this.dataGridViewTextBoxColumn8.MinimumWidth = 10;
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "DataFlow";
+            this.dataGridViewTextBoxColumn9.HeaderText = "DataFlow";
+            this.dataGridViewTextBoxColumn9.MinimumWidth = 10;
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.DataPropertyName = "Message";
+            this.dataGridViewTextBoxColumn10.HeaderText = "Message";
+            this.dataGridViewTextBoxColumn10.MinimumWidth = 10;
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            // 
+            // gridViewDataCommBindingSource
+            // 
+            this.gridViewDataCommBindingSource.DataSource = typeof(CVMonitorExample.GridViewDataComm);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(985, 455);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.comboBox1);
+            this.ClientSize = new System.Drawing.Size(1829, 910);
+            this.Controls.Add(this.comboBoxSensor);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.comboBoxSamplingTime);
             this.Controls.Add(this.buttonLimit);
             this.Controls.Add(this.groupBox1);
@@ -716,6 +919,7 @@
             this.Controls.Add(this.buttonCheckTime);
             this.Controls.Add(this.buttonConnect);
             this.Controls.Add(this.buttonCheckIP);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "MainForm";
             this.Text = "CV Monitor";
             this.tabControl1.ResumeLayout(false);
@@ -725,15 +929,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartA)).EndInit();
             this.tabPageGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewData)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewDataDataBindingSource)).EndInit();
             this.tabPageError.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDeviceLog)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewDataDeviceLogBindingSource)).EndInit();
             this.tabPageLog.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewComm)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewDataCommBindingSource)).EndInit();
+            this.tabPageCalibration.ResumeLayout(false);
+            this.tabPageCalibration.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewDataDataBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewDataDeviceLogBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewDataCommBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -767,7 +973,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn messageDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource gridViewDataDeviceLogBindingSource;
         private System.Windows.Forms.BindingSource gridViewDataDataBindingSource;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateTimeDataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn strCodeDataGridViewTextBoxColumn;
@@ -784,7 +989,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Result;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button buttonScaleApply;
@@ -793,8 +997,35 @@
         private System.Windows.Forms.TextBox textBoxMin;
         private System.Windows.Forms.Button buttonLimit;
         private System.Windows.Forms.ComboBox comboBoxSamplingTime;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TabPage tabPageCalibration;
+        private System.Windows.Forms.TextBox textBoxSensor;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBoxHighCurrent;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnHighCurrent;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button btnZeroCurrent;
+        private System.Windows.Forms.Label labelInterval;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label labelZeroCurrent;
+        private System.Windows.Forms.Label labelHighCurrent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clientIPAddressDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn errorCodeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn current0DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn current1DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn voltage0DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn voltage1DataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn resultDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ComboBox comboBoxSensor;
+        private System.Windows.Forms.Label label12;
     }
 }
 

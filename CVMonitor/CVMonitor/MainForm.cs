@@ -32,7 +32,8 @@ namespace CVMonitorExample
         private List<float> _gatheringDatas4 = new List<float>();
         private DateTime _writeDate = DateTime.Now;
         private string _csvFileName;
-        
+        private System.Timers.Timer _timer = new System.Timers.Timer();
+
         private delegate void AddReceiveDataDelegate(ReceiveProtocol receive);
         private delegate void EnableControlDelegate(bool enable);
         private AddReceiveDataDelegate _addReceiveData;
@@ -46,7 +47,7 @@ namespace CVMonitorExample
             InitializeDelegate();
             InitializeControl();
             InitializeComm();
-            comboBox1.SelectedIndex = 0;
+            InitializeTimer();
         }
 
         private void InitializeDirectory()
@@ -127,6 +128,7 @@ namespace CVMonitorExample
         {
             textBoxIP.Text = SettingManager.Instance.IPAddress;
             comboBoxSamplingTime.Text = SettingManager.Instance.SamplingTime.ToString();
+            comboBoxSensor.SelectedIndex = 0;
 
             InitializeVoltageAxis(0, 500, 0, 50);
             InitializeCurrentAxis(0, 500, 0, 50);
@@ -145,8 +147,8 @@ namespace CVMonitorExample
             dataGridViewData.DataSource = _bindingSourceData;
             dataGridViewData.RowHeadersVisible = false;
             dataGridViewData.Columns[0].DefaultCellStyle.Format = "yyyy/MM/dd HH:mm:ss";
-            dataGridViewData.Columns[1].DefaultCellStyle.Format = "N1";
-            dataGridViewData.Columns[2].DefaultCellStyle.Format = "N1";
+            dataGridViewData.Columns[1].DefaultCellStyle.Format = "N2";
+            dataGridViewData.Columns[2].DefaultCellStyle.Format = "N2";
             dataGridViewData.Columns[3].DefaultCellStyle.Format = "N3";
             dataGridViewData.Columns[4].DefaultCellStyle.Format = "N3";
             if (dataGridViewData.VirtualMode)
@@ -159,6 +161,16 @@ namespace CVMonitorExample
             _boardComm.OnCallbackMethod += OnCallbackMethod;
             _boardComm.OnCallbackConnectMethod += OnCallbackConnectMethod;
             _boardComm.OnCallbackWriteMethod += OnCallbackWriteMethod;
+        }
+
+        private void InitializeTimer()
+        {
+            TimeSpan timeOrg = new TimeSpan(0, 0, 1, 0);
+            double interval = timeOrg.TotalSeconds * 1000;
+
+            _timer.Interval = interval;
+            _timer.Elapsed += _timer_Elapsed;
+            
         }
 
         private void InitializeCSVPath()
@@ -190,6 +202,11 @@ namespace CVMonitorExample
                 textBoxMin.Enabled = enable;
                 textBoxMax.Enabled = enable;
                 buttonScaleApply.Enabled = enable;
+                textBoxSensor.Enabled = enable;
+                textBoxHighCurrent.Enabled = enable;
+                btnHighCurrent.Enabled = enable;
+                btnZeroCurrent.Enabled = enable;
+                comboBoxSensor.Enabled = enable;
             }
         }
 
@@ -351,26 +368,29 @@ namespace CVMonitorExample
 
                 for (int i = 0; i < receiveProtocol_GatheringData.DataCount; i++)
                 {
-                    if(comboBox1.SelectedIndex == 0)
+                    if(comboBoxSensor.SelectedIndex == 1)
                     {
-                        //receiveProtocol_GatheringData.Datas[i][0] = (float)((receiveProtocol_GatheringData.Datas[i][0] - 2.5) * 20);
-                        //receiveProtocol_GatheringData.Datas[i][1] = (float)((receiveProtocol_GatheringData.Datas[i][1] - 2.5) * 20);
-                        //receiveProtocol_GatheringData.Datas[i][0] = (float)((receiveProtocol_GatheringData.Datas[i][0] - 2.5) * 6.25);
-                        //receiveProtocol_GatheringData.Datas[i][1] = (float)((receiveProtocol_GatheringData.Datas[i][1] - 2.5) * 6.25);
+                        float ch0 = (float)((receiveProtocol_GatheringData.Datas[i][0] - SettingManager.Instance.ZeroCurrentValue) * SettingManager.Instance.Sensor / SettingManager.Instance.Interval);
+                        float ch1 = (float)((receiveProtocol_GatheringData.Datas[i][1] - SettingManager.Instance.ZeroCurrentValue) * SettingManager.Instance.Sensor / SettingManager.Instance.Interval);
+                        _gatheringDatas1.Add(ch0);
+                        _gatheringDatas2.Add(ch1);
                     }
-
-                    _gatheringDatas1.Add(receiveProtocol_GatheringData.Datas[i][0]);
-                    _gatheringDatas2.Add(receiveProtocol_GatheringData.Datas[i][1]);
+                    else
+                    {
+                        _gatheringDatas1.Add(receiveProtocol_GatheringData.Datas[i][0]);
+                        _gatheringDatas2.Add(receiveProtocol_GatheringData.Datas[i][1]);
+                    }
+                    
                     _gatheringDatas3.Add(receiveProtocol_GatheringData.Datas[i][2]);
                     _gatheringDatas4.Add(receiveProtocol_GatheringData.Datas[i][3]);
 
                     List<Limit> limits = SettingManager.Instance.Limits;
                     string result = "OK";
 
-                    if (limits[0].LowerLimit < _gatheringDatas1[i] && _gatheringDatas1[i] < limits[0].UpperLimit &&
-                        limits[1].LowerLimit < _gatheringDatas2[i] && _gatheringDatas2[i] < limits[1].UpperLimit &&
-                        limits[2].LowerLimit < _gatheringDatas3[i] && _gatheringDatas3[i] < limits[2].UpperLimit &&
-                        limits[3].LowerLimit < _gatheringDatas4[i] && _gatheringDatas4[i] < limits[3].UpperLimit)
+                    if (limits[0].LowerLimit <= _gatheringDatas1[i] && _gatheringDatas1[i] <= limits[0].UpperLimit &&
+                        limits[1].LowerLimit <= _gatheringDatas2[i] && _gatheringDatas2[i] <= limits[1].UpperLimit &&
+                        limits[2].LowerLimit <= _gatheringDatas3[i] && _gatheringDatas3[i] <= limits[2].UpperLimit &&
+                        limits[3].LowerLimit <= _gatheringDatas4[i] && _gatheringDatas4[i] <= limits[3].UpperLimit)
                         result = "OK";
                     else
                         result = "NG";
@@ -470,7 +490,7 @@ namespace CVMonitorExample
             ClearGridData();
             ClearChartPoints();
             InitializeCSVPath();
-            timer1.Start();
+            _timer.Start();
             _boardComm.StartGathering();
             buttonStartGathering.Enabled = false;
             buttonStopGathering.Enabled = true;
@@ -480,7 +500,7 @@ namespace CVMonitorExample
 
         private void buttonStopGathering_Click(object sender, EventArgs e)
         {
-            timer1.Stop();
+            _timer.Stop();
             _boardComm.StopGathering();
             buttonStartGathering.Enabled = true;
             buttonStopGathering.Enabled = false;
@@ -516,6 +536,15 @@ namespace CVMonitorExample
             _bindingSourceData.Clear();
         }
 
+        private void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            string fileName = DateTime.Now.ToString("HH_mm_ss") + ".csv";
+            _csvFileName = Path.Combine(SettingManager.Instance.DataPath, "CSV", DateTime.Now.ToString("yyyy-MM-dd"), fileName);
+            _writeDate = DateTime.Now;
+            _csvDatas.Clear();
+            Console.WriteLine(_csvFileName);
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             //WriteCSVFile();
@@ -524,6 +553,7 @@ namespace CVMonitorExample
             _csvFileName = Path.Combine(SettingManager.Instance.DataPath, "CSV", DateTime.Now.ToString("yyyy-MM-dd"), fileName);
             _writeDate = DateTime.Now;
             _csvDatas.Clear();
+            Console.WriteLine(_csvFileName);
         }
 
         private void DataGridViewData_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
@@ -629,6 +659,38 @@ namespace CVMonitorExample
             {
 
             }
+        }
+
+        private void btnHighCurrent_Click(object sender, EventArgs e)
+        {
+            if(string.IsNullOrEmpty(textBoxHighCurrent.Text) || string.IsNullOrEmpty(textBoxSensor.Text))
+            {
+                MessageBox.Show("값이 비어있습니다.");
+                return;
+            }
+            if (_gatheringDatas1.Count == 0)
+                return;
+            SettingManager.Instance.Sensor = Convert.ToInt32(textBoxSensor.Text);
+            SettingManager.Instance.HightCurrent = Convert.ToInt32(textBoxHighCurrent.Text);
+            SettingManager.Instance.HightCurrentValue = (float)Math.Round(_gatheringDatas1[0], 3);
+            labelHighCurrent.Text = SettingManager.Instance.HightCurrentValue.ToString();
+        }
+
+        private void btnZeroCurrent_Click(object sender, EventArgs e)
+        {
+            ///Test 용
+            //SettingManager.Instance.ZeroCurrentValue = (float)2.214;
+            ///
+            
+            SettingManager.Instance.ZeroCurrentValue = (float)Math.Round(_gatheringDatas1[0], 3);
+            labelZeroCurrent.Text = SettingManager.Instance.ZeroCurrentValue.ToString();
+
+            float m = (float)Math.Round((SettingManager.Instance.ZeroCurrentValue - SettingManager.Instance.HightCurrentValue) / (0 - SettingManager.Instance.HightCurrent), 3);
+            float y = SettingManager.Instance.HightCurrentValue - m * SettingManager.Instance.HightCurrent;
+            float value = (float)Math.Round(m * SettingManager.Instance.Sensor + y, 3);
+            SettingManager.Instance.Interval = (float)Math.Round(SettingManager.Instance.ZeroCurrentValue - value, 3);
+            labelInterval.Text = SettingManager.Instance.Interval.ToString();
+            SettingManager.Instance.SaveSettings();
         }
     }
 }

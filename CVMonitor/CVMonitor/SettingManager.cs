@@ -30,12 +30,24 @@ namespace CVMonitorExample
         public List<Limit> Limits { get; set; }
         public string DataPath { get; set; }
         public int DeletePeriod { get; set; }
+        public int Sensor { get; set; } 
+        public int HightCurrent { get; set; }
+        public float HightCurrentValue { get; set; }
+        public float ZeroCurrentValue { get; set; }
+        public float Interval { get; set; }
+
         private void InitializSettings()
         {
             IPAddress = "192.168.0.128";
             SamplingTime = 50;
             DataPath = Environment.CurrentDirectory +"\\Data";
             DeletePeriod = 1;
+
+            Sensor = 0;
+            HightCurrent = 0;
+            HightCurrentValue = 0;
+            ZeroCurrentValue = 0;
+            Interval = 0;
 
             Limits = new List<Limit>();
             Channel channel = Channel.Current_0;
@@ -58,6 +70,48 @@ namespace CVMonitorExample
             SamplingTime = int.Parse(IniManager.ReadIni("Basic", "SamplingTime"));
             DataPath = IniManager.ReadIni("Basic", "DataPath");
             DeletePeriod = int.Parse(IniManager.ReadIni("Basic", "DeletePeriod"));
+
+            try
+            {
+                Sensor = int.Parse(IniManager.ReadIni("Basic", "Sensor"));
+            }
+            catch
+            {
+                Sensor = 0;
+            }
+
+            try
+            {
+                HightCurrent = int.Parse(IniManager.ReadIni("Basic", "HightCurrent"));
+            }
+            catch
+            {
+                HightCurrent = 0;
+            }
+            try
+            {
+                HightCurrentValue = float.Parse(IniManager.ReadIni("Basic", "HightCurrentValue"));
+            }
+            catch
+            {
+                HightCurrentValue = 0;
+            }
+            try
+            {
+                ZeroCurrentValue = float.Parse(IniManager.ReadIni("Basic", "ZeroCurrentValue"));
+            }
+            catch
+            {
+                ZeroCurrentValue = 0;
+            }
+            try
+            {
+                Interval = float.Parse(IniManager.ReadIni("Basic", "Interval"));
+            }
+            catch
+            {
+                Interval = 0;
+            }
             
             Limits = new List<Limit>();
 
@@ -87,6 +141,12 @@ namespace CVMonitorExample
             IniManager.WriteIni("Basic", "SamplingTime", SamplingTime.ToString());
             IniManager.WriteIni("Basic", "DataPath", DataPath);
             IniManager.WriteIni("Basic", "DeletePeriod", DeletePeriod.ToString());
+
+            IniManager.WriteIni("Basic", "Sensor", Sensor.ToString());
+            IniManager.WriteIni("Basic", "HightCurrent", HightCurrent.ToString());
+            IniManager.WriteIni("Basic", "HightCurrentValue", HightCurrentValue.ToString());
+            IniManager.WriteIni("Basic", "ZeroCurrentValue", ZeroCurrentValue.ToString());
+            IniManager.WriteIni("Basic", "Interval", Interval.ToString());
 
             for (int i = 0; i < Limits.Count; i++)
             {

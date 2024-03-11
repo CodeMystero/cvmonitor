@@ -126,8 +126,8 @@ namespace CVMonitorExample
 
                     float ch0 = BitConverter.ToUInt16(byteData1, 0) * ((float)4 / 65536);
                     float ch1 = BitConverter.ToUInt16(byteData2, 0) * ((float)4 / 65536);
-                    ch0 = (float)((ch0 - 2.214) * 10 / 0.887);
-                    ch1 = (float)((ch1 - 2.214) * 10 / 0.887);
+                    //ch0 = (float)((ch0 - 2.214) * 10 / 0.887);
+                    //ch1 = (float)((ch1 - 2.214) * 10 / 0.887);
                     float ch2 = BitConverter.ToUInt16(byteData3, 0) * ((float)50 / 65536);
                     float ch3 = BitConverter.ToUInt16(byteData4, 0) * ((float)50 / 65536);
 
