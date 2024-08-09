@@ -50,45 +50,21 @@ namespace CVMonitorExample
             InitializeTimer();
         }
 
+
+        //디렉토리 생성 메서드 리팩토링
         private void InitializeDirectory()
         {
-            string directory = Environment.CurrentDirectory + "\\Config";
-            DirectoryInfo directoryInfo = new DirectoryInfo(directory);
-            if (!directoryInfo.Exists)
-            {
-                directoryInfo.Create();
-            }
+            CreateDirectoryIfNotExists(Path.Combine(Environment.CurrentDirectory, "Config"));
+            CreateDirectoryIfNotExists(Path.Combine(Environment.CurrentDirectory, "Data"));
+            CreateDirectoryIfNotExists(Path.Combine(Environment.CurrentDirectory, "Data", "Log"));
+            CreateDirectoryIfNotExists(Path.Combine(Environment.CurrentDirectory, "Data", "CSV"));
+            CreateDirectoryIfNotExists(Path.Combine(Environment.CurrentDirectory, "Data", "Error"));
+            CreateDirectoryIfNotExists(Path.Combine(Environment.CurrentDirectory, "Data", "Event"));
+        }
 
-            directory = Environment.CurrentDirectory + "\\Data";
-            directoryInfo = new DirectoryInfo(directory);
-            if (!directoryInfo.Exists)
-            {
-                directoryInfo.Create();
-            }
-
-            directory = Environment.CurrentDirectory + "\\Data" + "\\Log";
-            directoryInfo = new DirectoryInfo(directory);
-            if (!directoryInfo.Exists)
-            {
-                directoryInfo.Create();
-            }
-
-            directory = Environment.CurrentDirectory + "\\Data" + "\\CSV";
-            directoryInfo = new DirectoryInfo(directory);
-            if (!directoryInfo.Exists)
-            {
-                directoryInfo.Create();
-            }
-
-            directory = Environment.CurrentDirectory + "\\Data" + "\\Error";
-            directoryInfo = new DirectoryInfo(directory);
-            if (!directoryInfo.Exists)
-            {
-                directoryInfo.Create();
-            }
-
-            directory = Environment.CurrentDirectory + "\\Data" + "\\Event";
-            directoryInfo = new DirectoryInfo(directory);
+        private void CreateDirectoryIfNotExists(string path)
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
             if (!directoryInfo.Exists)
             {
                 directoryInfo.Create();
@@ -115,6 +91,18 @@ namespace CVMonitorExample
             chartV.ChartAreas[0].RecalculateAxesScale();
         }
 
+        // InitializeCurrentAixs, VolatageAixs 리팩토링
+        //private void InitializeAxis(Chart chart, double xMin, double xMax, double yMin, double yMax)
+        //{
+        //    var chartArea = chart.ChartAreas[0];
+        //    chartArea.AxisX.Minimum = xMin;
+        //    chartArea.AxisX.Maximum = xMax;
+        //    chartArea.AxisY.Minimum = yMin;
+        //    chartArea.AxisY.Maximum = yMax;
+        //    chartArea.RecalculateAxesScale();
+        //}
+
+
         private void InitializeCurrentAxis(double xMin, double xMax, double yMin, double yMax)
         {
             chartA.ChartAreas[0].AxisX.Minimum = xMin;
@@ -132,6 +120,9 @@ namespace CVMonitorExample
 
             InitializeVoltageAxis(0, 500, 0, 50);
             InitializeCurrentAxis(0, 500, 0, 50);
+
+            //InitializeAxis(chartV, 0, 500, 0, 50);
+            //InitializeAxis(chartA, 0, 500, 0, 50);
 
             _bindingSourceComm.DataSource = _gridViewDataComms;
             dataGridViewComm.DataSource = _bindingSourceComm;
@@ -234,11 +225,14 @@ namespace CVMonitorExample
 
         }
 
+        // 비동기 데이터 수신할때마다 콜백되는 함수 
         public void OnCallbackMethod(ReceiveProtocol receive)
         {
             ReceiveDataDisplay(receive);
         }
 
+
+        // 수신된 데이터에 따라 UI처리
         private void ReceiveDataDisplay(ReceiveProtocol receive)
         {
             if (this.InvokeRequired)
@@ -304,7 +298,7 @@ namespace CVMonitorExample
         private void AddGridViewComm(DateTime dateTime, bool send, string msg)
         {
             DataFlow dataFlow;
-
+            
             if (send)
             {
                 dataFlow = DataFlow.Send;
@@ -346,7 +340,7 @@ namespace CVMonitorExample
 
         private void AddGridViewData(ReceiveProtocol_GatheringData receiveProtocol_GatheringData)
         {
-            if(_writeDate.Date != DateTime.Now.Date)
+            if(_writeDate.Date != DateTime.Now.Date) // 시간이 다르면 새로운 파일 만듬
             {
                 string fileName = DateTime.Now.ToString("HH_mm_ss") + ".csv";
                 _csvFileName = Path.Combine(SettingManager.Instance.DataPath, "CSV", DateTime.Now.ToString("yyyy-MM-dd"), fileName);
@@ -355,12 +349,12 @@ namespace CVMonitorExample
             
             string directory = Path.GetDirectoryName(_csvFileName);
             DirectoryInfo directoryInfo = new DirectoryInfo(directory);
-            if (!directoryInfo.Exists)
+            if (!directoryInfo.Exists) // 파일 존재하는지 확인 후 없으면 새로운 파일 만들기 
             {
                 directoryInfo.Create();
             }
 
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(_csvFileName, true))
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(_csvFileName, true)) //파일 열기 StreamWrite(파일, true -> 이어쓰기|false -> 처음부터)
             {
                 List<string> csvList = new List<string>();
 
@@ -368,9 +362,10 @@ namespace CVMonitorExample
 
                 for (int i = 0; i < receiveProtocol_GatheringData.DataCount; i++)
                 {
-                    if(comboBoxSensor.SelectedIndex == 1)
+                    if(comboBoxSensor.SelectedIndex == 1) //문자열 on:1 off:2 로 구성 돼 있음 
                     {
                         float ch0 = (float)((receiveProtocol_GatheringData.Datas[i][0] - SettingManager.Instance.ZeroCurrentValue) * SettingManager.Instance.Sensor / SettingManager.Instance.Interval);
+                        //sensor랑 Interval값이 뭔지 모르겠음 0으로 세팅 돼 있음 
                         float ch1 = (float)((receiveProtocol_GatheringData.Datas[i][1] - SettingManager.Instance.ZeroCurrentValue) * SettingManager.Instance.Sensor / SettingManager.Instance.Interval);
                         _gatheringDatas1.Add(ch0);
                         _gatheringDatas2.Add(ch1);
@@ -385,6 +380,7 @@ namespace CVMonitorExample
                     _gatheringDatas4.Add(receiveProtocol_GatheringData.Datas[i][3]);
 
                     List<Limit> limits = SettingManager.Instance.Limits;
+
                     string result = "OK";
 
                     if (limits[0].LowerLimit <= _gatheringDatas1[i] && _gatheringDatas1[i] <= limits[0].UpperLimit &&
@@ -473,7 +469,7 @@ namespace CVMonitorExample
             string msg = string.Format("[Set Time & Sampling Time] Device Time : [{0}] Sampling Time : [{1}]", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                 samplingTime.ToString());
             AddGridViewComm(DateTime.Now, true, msg);
-            _boardComm.SetTimeAndSamplingTime(DateTime.Now, samplingTime);
+            _boardComm.SetTimeAndSamplingTime(DateTime.Now, samplingTime); // 장치에 샘플링 시간 전송 
             SettingManager.Instance.SamplingTime = samplingTime;
             SettingManager.Instance.SaveSettings();
         }
@@ -662,17 +658,23 @@ namespace CVMonitorExample
         }
 
         private void btnHighCurrent_Click(object sender, EventArgs e)
-        {
+        {   // 검증 textBoxSensor가 비어 있으면 MessageBox띄움
             if(string.IsNullOrEmpty(textBoxHighCurrent.Text) || string.IsNullOrEmpty(textBoxSensor.Text))
             {
                 MessageBox.Show("값이 비어있습니다.");
                 return;
             }
+            //데이터 Current CH0 값이 비어 있는지 확인
             if (_gatheringDatas1.Count == 0)
                 return;
-            SettingManager.Instance.Sensor = Convert.ToInt32(textBoxSensor.Text);
-            SettingManager.Instance.HightCurrent = Convert.ToInt32(textBoxHighCurrent.Text);
+            //텍스트 박스에 있는 Sensor값 및 HighCurrent Value 값을 저장
+            SettingManager.Instance.Sensor = Convert.ToInt32(textBoxSensor.Text); 
+            SettingManager.Instance.HightCurrent = Convert.ToInt32(textBoxHighCurrent.Text); 
+            
+            //_gatheringData1의 첫 번째 값을 소수점 셋째 자리까지 반올림하여 저장 
             SettingManager.Instance.HightCurrentValue = (float)Math.Round(_gatheringDatas1[0], 3);
+            
+            // labelHighCurrent 새값으로 UI갱신 
             labelHighCurrent.Text = SettingManager.Instance.HightCurrentValue.ToString();
         }
 
@@ -692,5 +694,7 @@ namespace CVMonitorExample
             labelInterval.Text = SettingManager.Instance.Interval.ToString();
             SettingManager.Instance.SaveSettings();
         }
+
+
     }
 }
