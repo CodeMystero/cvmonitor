@@ -82,47 +82,30 @@ namespace CVMonitorExample
             _enableControl = new EnableControlDelegate(EnableControl);
         }
 
-        private void InitializeVoltageAxis(double xMin, double xMax, double yMin, double yMax)
-        {
-            chartV.ChartAreas[0].AxisX.Minimum = xMin;
-            chartV.ChartAreas[0].AxisX.Maximum = xMax;
-            chartV.ChartAreas[0].AxisY.Minimum = yMin;
-            chartV.ChartAreas[0].AxisY.Maximum = yMax;
-            chartV.ChartAreas[0].RecalculateAxesScale();
-        }
 
         // InitializeCurrentAixs, VolatageAixs 리팩토링
-        //private void InitializeAxis(Chart chart, double xMin, double xMax, double yMin, double yMax)
-        //{
-        //    var chartArea = chart.ChartAreas[0];
-        //    chartArea.AxisX.Minimum = xMin;
-        //    chartArea.AxisX.Maximum = xMax;
-        //    chartArea.AxisY.Minimum = yMin;
-        //    chartArea.AxisY.Maximum = yMax;
-        //    chartArea.RecalculateAxesScale();
-        //}
-
-
-        private void InitializeCurrentAxis(double xMin, double xMax, double yMin, double yMax)
+        private void InitializeAxis(Chart chart, double xMin, double xMax, double yMin, double yMax)
         {
-            chartA.ChartAreas[0].AxisX.Minimum = xMin;
-            chartA.ChartAreas[0].AxisX.Maximum = xMax;
-            chartA.ChartAreas[0].AxisY.Minimum = yMin;
-            chartA.ChartAreas[0].AxisY.Maximum = yMax;
-            chartA.ChartAreas[0].RecalculateAxesScale();
+            var chartArea = chart.ChartAreas[0];
+            chartArea.AxisX.Minimum = xMin;
+            chartArea.AxisX.Maximum = xMax;
+            chartArea.AxisY.Minimum = yMin;
+            chartArea.AxisY.Maximum = yMax;
+            chartArea.RecalculateAxesScale();
         }
 
         private void InitializeControl()
         {
+            // UI 초기화를 설정하는 부분
             textBoxIP.Text = SettingManager.Instance.IPAddress;
             comboBoxSamplingTime.Text = SettingManager.Instance.SamplingTime.ToString();
             comboBoxSensor.SelectedIndex = 0;
 
-            InitializeVoltageAxis(0, 500, 0, 50);
-            InitializeCurrentAxis(0, 500, 0, 50);
+            // 차트를 초기화 하는 부분
+            InitializeAxis(chartV, 0, 500, 0, 50);
+            InitializeAxis(chartA, 0, 500, 0, 50);
 
-            //InitializeAxis(chartV, 0, 500, 0, 50);
-            //InitializeAxis(chartA, 0, 500, 0, 50);
+
 
             _bindingSourceComm.DataSource = _gridViewDataComms;
             dataGridViewComm.DataSource = _bindingSourceComm;
@@ -142,9 +125,12 @@ namespace CVMonitorExample
             dataGridViewData.Columns[2].DefaultCellStyle.Format = "N2";
             dataGridViewData.Columns[3].DefaultCellStyle.Format = "N3";
             dataGridViewData.Columns[4].DefaultCellStyle.Format = "N3";
+
             if (dataGridViewData.VirtualMode)
                 dataGridViewData.CellValueNeeded += DataGridViewData_CellValueNeeded;
         }
+
+
 
         private void InitializeComm()
         {
@@ -588,10 +574,10 @@ namespace CVMonitorExample
                 switch (tabControl1.SelectedIndex)
                 {
                     case 0:
-                        InitializeVoltageAxis(0, 500, min, max);
+                        InitializeAxis(chartV, 0, 500, min, max);
                         break;
                     case 1:
-                        InitializeCurrentAxis(0, 500, min, max);
+                        InitializeAxis(chartA, 0, 500, min, max);
                         break;
                 }
             }
