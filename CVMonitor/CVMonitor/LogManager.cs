@@ -25,18 +25,20 @@ namespace CVMonitorExample
         }
 
         public string LogPath { get; set; }
-        public void StartTimer()
+        public void StartTimer() // 10분 단위로 로그 파일 생성
         {
-            _timer.Interval = 600000;
-            _timer.Elapsed += _timer_Elapsed;
+            _timer.Interval = 600000; // 10분
+            _timer.Elapsed += _timer_Elapsed; // Elapsed 가 발생할때 마다 _timer_Elapsed 호출 
             _timer.Start();
             writeDate = DateTime.Now;
+            //타이머가 시작될때 로그 생성
             LogPath = Path.Combine(SettingManager.Instance.DataPath, "Log", DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("HH_mm_ss") + ".log");
         }
 
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             writeDate = DateTime.Now;
+            //두번째 time elapsed부터는 아래에서 10분마다 로그생성
             LogPath = Path.Combine(SettingManager.Instance.DataPath, "Log", DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("HH_mm_ss") + ".log");
         }
 

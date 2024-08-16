@@ -53,12 +53,12 @@ namespace CVMonitorExample
             try
             {
                 Datas = new List<DeviceLog> ();
-                DataCount = bytes[1];
-                int startIdx = 2;
-                int dateCount = 6;
-                int dummyCount = 5;
-                int clientIPCount = 4;
-                int errorCodeCount = 1;
+                DataCount = bytes[1]; /// 데이터 길이가 패킷의 1번 bytes에 저장 돼 있기 때문에 ?
+                int startIdx =              2;
+                int dateCount =             6;
+                int dummyCount =            5;
+                int clientIPCount =         4;
+                int errorCodeCount =        1;
                 int dateLength = dateCount + dummyCount + clientIPCount + errorCodeCount;
                 for (int i = 0; i < DataCount; i++)
                 {
@@ -101,12 +101,13 @@ namespace CVMonitorExample
             try
             {
                 Datas = new List<float[]>();
-                DataCount = bytes[3];
+                DataCount = bytes[3]; //데이터의 길이가 bytes[3]에 들어있다는건 펌웨어가 그렇기 때문에 ?
                 int headerSize = 4;
                 int offset = 8;
 
                 for (int i = 0; i < DataCount; i++)
                 {
+                    //덮어쓰지 않고 왜 for문 안에서 계속 메모리 할당? 메모리 누수 x 메모리 효율성?
                     byte[] byteData1 = new byte[2];
                     byte[] byteData2 = new byte[2];
                     byte[] byteData3 = new byte[2];
@@ -118,7 +119,7 @@ namespace CVMonitorExample
                     Array.Copy(bytes, headerSize + (offset * i) + 2, byteData2, 0, 2);
                     Array.Copy(bytes, headerSize + (offset * i) + 4, byteData3, 0, 2);
                     Array.Copy(bytes, headerSize + (offset * i) + 6, byteData4, 0, 2);
-
+    
                     Array.Reverse(byteData1);
                     Array.Reverse(byteData2);
                     Array.Reverse(byteData3);
@@ -197,13 +198,13 @@ namespace CVMonitorExample
 
     enum ErrorCode
     {
-        Connected = 0x01, //CLIENT IP Field에 접속 된 CLIENT IP 같이 전송
-        CloseWait = 0x02,
-        ServerStart = 0x03,
-        FailSocket = 0x04,
-        ListenWait = 0x05,
-        SendOKProblem = 0x06, //송/수신 중 문제 발생
-        ReConnection = 0x07
+        Connected =             0x01, //CLIENT IP Field에 접속 된 CLIENT IP 같이 전송
+        CloseWait =             0x02,
+        ServerStart =           0x03,
+        FailSocket =            0x04,
+        ListenWait =            0x05,
+        SendOKProblem =         0x06, //송/수신 중 문제 발생
+        ReConnection =          0x07
     }
 
     class DeviceLog

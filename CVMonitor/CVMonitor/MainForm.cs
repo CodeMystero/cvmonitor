@@ -18,35 +18,46 @@ namespace CVMonitorExample
 {
     public partial class MainForm : Form
     {
-        private BoardComm _boardComm;
-        private List<GridViewDataComm> _gridViewDataComms = new List<GridViewDataComm>();
-        private List<GridViewDataDeviceLog> _gridViewDataDeviceLogs = new List<GridViewDataDeviceLog>();
-        private List<GridViewDataData> _gridViewDataDatas = new List<GridViewDataData>();
-        private List<GridViewDataData> _csvDatas = new List<GridViewDataData>();
-        private BindingSource _bindingSourceComm = new BindingSource();
-        private BindingSource _bindingSourceDeviceLog = new BindingSource();
-        private BindingSource _bindingSourceData = new BindingSource();
-        private List<float> _gatheringDatas1 = new List<float>();
-        private List<float> _gatheringDatas2 = new List<float>();
-        private List<float> _gatheringDatas3 = new List<float>();
-        private List<float> _gatheringDatas4 = new List<float>();
-        private DateTime _writeDate = DateTime.Now;
         private string _csvFileName;
-        private System.Timers.Timer _timer = new System.Timers.Timer();
+
+        private BoardComm _boardComm;
+
+        private BindingSource _bindingSourceComm;
+        private BindingSource _bindingSourceDeviceLog;
+        private BindingSource _bindingSourceData;
 
         private delegate void AddReceiveDataDelegate(ReceiveProtocol receive);
         private delegate void EnableControlDelegate(bool enable);
         private AddReceiveDataDelegate _addReceiveData;
         private EnableControlDelegate _enableControl;
 
+        private MainFormFactory _factory;
+        private ManagerFactory _managerFactory;
+
+        private List<GridViewDataComm> _gridViewDataComms =                 new List<GridViewDataComm>();
+        private List<GridViewDataDeviceLog> _gridViewDataDeviceLogs =       new List<GridViewDataDeviceLog>();
+        private List<GridViewDataData> _gridViewDataDatas =                 new List<GridViewDataData>();
+        private List<GridViewDataData> _csvDatas =                          new List<GridViewDataData>();
+
+        private List<float> _gatheringDatas1 =                              new List<float>();
+        private List<float> _gatheringDatas2 =                              new List<float>();
+        private List<float> _gatheringDatas3 =                              new List<float>();
+        private List<float> _gatheringDatas4 =                              new List<float>();
+
+        private DateTime _writeDate =                                       DateTime.Now;
+        private System.Timers.Timer _timer =                                new System.Timers.Timer();
+
         public MainForm()
         {
             InitializeComponent();
+            _factory = new MainFormFactory();
+            _managerFactory = new ManagerFactory();
+
+            InitializeComm();
             InitializeDirectory();
             InitializeSetting();
             InitializeDelegate();
             InitializeControl();
-            InitializeComm();
             InitializeTimer();
         }
 
@@ -54,12 +65,19 @@ namespace CVMonitorExample
         //디렉토리 생성 메서드 리팩토링
         private void InitializeDirectory()
         {
-            CreateDirectoryIfNotExists(Path.Combine(Environment.CurrentDirectory, "Config"));
-            CreateDirectoryIfNotExists(Path.Combine(Environment.CurrentDirectory, "Data"));
-            CreateDirectoryIfNotExists(Path.Combine(Environment.CurrentDirectory, "Data", "Log"));
-            CreateDirectoryIfNotExists(Path.Combine(Environment.CurrentDirectory, "Data", "CSV"));
-            CreateDirectoryIfNotExists(Path.Combine(Environment.CurrentDirectory, "Data", "Error"));
-            CreateDirectoryIfNotExists(Path.Combine(Environment.CurrentDirectory, "Data", "Event"));
+            string[] directories = {
+                Path.Combine(Environment.CurrentDirectory, "Config"),
+                Path.Combine(Environment.CurrentDirectory, "Data"),
+                Path.Combine(Environment.CurrentDirectory, "Data", "Log"),
+                Path.Combine(Environment.CurrentDirectory, "Data", "CSV"),
+                Path.Combine(Environment.CurrentDirectory, "Data", "Error"),
+                Path.Combine(Environment.CurrentDirectory, "Data", "Event")
+            };
+
+            foreach (var dir in directories)
+            {
+                CreateDirectoryIfNotExists(dir);
+            }
         }
 
         private void CreateDirectoryIfNotExists(string path)
@@ -86,68 +104,94 @@ namespace CVMonitorExample
         // InitializeCurrentAixs, VolatageAixs 리팩토링
         private void InitializeAxis(Chart chart, double xMin, double xMax, double yMin, double yMax)
         {
-            var chartArea = chart.ChartAreas[0];
-            chartArea.AxisX.Minimum = xMin;
-            chartArea.AxisX.Maximum = xMax;
-            chartArea.AxisY.Minimum = yMin;
-            chartArea.AxisY.Maximum = yMax;
+            var chartArea =                         chart.ChartAreas[0];
+            chartArea.AxisX.Minimum =               xMin;
+            chartArea.AxisX.Maximum =               xMax;
+            chartArea.AxisY.Minimum =               yMin;
+            chartArea.AxisY.Maximum =               yMax;
             chartArea.RecalculateAxesScale();
         }
 
         private void InitializeControl()
         {
-            // UI 초기화를 설정하는 부분
-            textBoxIP.Text = SettingManager.Instance.IPAddress;
-            comboBoxSamplingTime.Text = SettingManager.Instance.SamplingTime.ToString();
-            comboBoxSensor.SelectedIndex = 0;
+            SetupTextBoxAndComboBox();
 
             // 차트를 초기화 하는 부분
             InitializeAxis(chartV, 0, 500, 0, 50);
             InitializeAxis(chartA, 0, 500, 0, 50);
 
-
+            _bindingSourceComm = _factory.CreateBindingSource(_gridViewDataComms);
+            _bindingSourceDeviceLog = _factory.CreateBindingSource(_gridViewDataDeviceLogs);
+            _bindingSourceData = _factory.CreateBindingSource(_gridViewDataDatas);
 
             _bindingSourceComm.DataSource = _gridViewDataComms;
             dataGridViewComm.DataSource = _bindingSourceComm;
-            dataGridViewComm.RowHeadersVisible = false;
-            dataGridViewComm.Columns[0].DefaultCellStyle.Format = "yyyy/MM/dd HH:mm:ss.fff";
+
+            SetupDataGridView(dataGridViewComm, "yyyy/MM/dd HH:mm:ss.fff");
 
             _bindingSourceDeviceLog.DataSource = _gridViewDataDeviceLogs;
             dataGridViewDeviceLog.DataSource = _bindingSourceDeviceLog;
-            dataGridViewDeviceLog.RowHeadersVisible = false;
-            dataGridViewDeviceLog.Columns[0].DefaultCellStyle.Format = "yyyy/MM/dd HH:mm:ss";
+
+            SetupDataGridView(dataGridViewDeviceLog, "yyyy/MM/dd HH:mm:ss");
 
             _bindingSourceData.DataSource = _gridViewDataDatas;
             dataGridViewData.DataSource = _bindingSourceData;
-            dataGridViewData.RowHeadersVisible = false;
-            dataGridViewData.Columns[0].DefaultCellStyle.Format = "yyyy/MM/dd HH:mm:ss";
-            dataGridViewData.Columns[1].DefaultCellStyle.Format = "N2";
-            dataGridViewData.Columns[2].DefaultCellStyle.Format = "N2";
-            dataGridViewData.Columns[3].DefaultCellStyle.Format = "N3";
-            dataGridViewData.Columns[4].DefaultCellStyle.Format = "N3";
+
+            SetupDataGridView(dataGridViewData, "yyyy/MM/dd HH:mm:ss", "N2", "N3");
 
             if (dataGridViewData.VirtualMode)
                 dataGridViewData.CellValueNeeded += DataGridViewData_CellValueNeeded;
         }
 
+        private void SetupTextBoxAndComboBox()
+        {
+            textBoxIP.Text = SettingManager.Instance.IPAddress;
+            comboBoxSamplingTime.Text = SettingManager.Instance.SamplingTime.ToString();
+            comboBoxSensor.SelectedIndex = 0;
+        }
+
+        private void SetupDataGridView(DataGridView dataGridView, string format, string currentFormat = "N2", string voltageFormat = "N3")
+        {
+            dataGridView.RowHeadersVisible = false;
+            dataGridView.Columns[0].DefaultCellStyle.Format = format;
+
+            if (dataGridView.Columns.Count > 1)
+            {
+                dataGridView.Columns[1].DefaultCellStyle.Format = currentFormat;
+            }
+
+            if (dataGridView.Columns.Count > 2)
+            {
+                dataGridView.Columns[2].DefaultCellStyle.Format = currentFormat;
+            }
+
+            if (dataGridView.Columns.Count > 3)
+            {
+                dataGridView.Columns[3].DefaultCellStyle.Format = voltageFormat;
+            }
+
+            if (dataGridView.Columns.Count > 4)
+            {
+                dataGridView.Columns[4].DefaultCellStyle.Format = voltageFormat;
+            }
+        }
 
 
         private void InitializeComm()
         {
-            _boardComm = new BoardComm();
-            _boardComm.OnCallbackMethod += OnCallbackMethod;
-            _boardComm.OnCallbackConnectMethod += OnCallbackConnectMethod;
-            _boardComm.OnCallbackWriteMethod += OnCallbackWriteMethod;
+            _boardComm =                                    _factory.CreateBoardComm();
+            _boardComm.OnCallbackMethod +=                  OnCallbackMethod;
+            _boardComm.OnCallbackConnectMethod +=           OnCallbackConnectMethod;
+            _boardComm.OnCallbackWriteMethod +=             OnCallbackWriteMethod;
+
         }
 
         private void InitializeTimer()
         {
             TimeSpan timeOrg = new TimeSpan(0, 0, 1, 0);
             double interval = timeOrg.TotalSeconds * 1000;
+            _timer = _factory.CreateTimer(interval, _timer_Elapsed);
 
-            _timer.Interval = interval;
-            _timer.Elapsed += _timer_Elapsed;
-            
         }
 
         private void InitializeCSVPath()
@@ -165,25 +209,25 @@ namespace CVMonitorExample
             }
             else
             {
-                buttonConnect.Enabled = !enable;
-                buttonDisconnect.Enabled = enable;
-                buttonStartGathering.Enabled = enable;
-                buttonLogData.Enabled = enable;
-                buttonCheckIP.Enabled = enable;
-                buttonCheckTime.Enabled = enable;
-                buttonCheckVersion.Enabled = enable;
-                buttonSetTime.Enabled = enable;
-                buttonIPSetting.Enabled = enable;
-                textBoxSetIP.Enabled = enable;
-                comboBoxSamplingTime.Enabled = enable;
-                textBoxMin.Enabled = enable;
-                textBoxMax.Enabled = enable;
-                buttonScaleApply.Enabled = enable;
-                textBoxSensor.Enabled = enable;
-                textBoxHighCurrent.Enabled = enable;
-                btnHighCurrent.Enabled = enable;
-                btnZeroCurrent.Enabled = enable;
-                comboBoxSensor.Enabled = enable;
+                buttonConnect.Enabled =             !enable;
+                buttonDisconnect.Enabled =          enable;
+                buttonStartGathering.Enabled =      enable;
+                buttonLogData.Enabled =             enable;
+                buttonCheckIP.Enabled =             enable;
+                buttonCheckTime.Enabled =           enable;
+                buttonCheckVersion.Enabled =        enable;
+                buttonSetTime.Enabled =             enable;
+                buttonIPSetting.Enabled =           enable;
+                textBoxSetIP.Enabled =              enable;
+                comboBoxSamplingTime.Enabled =      enable;
+                textBoxMin.Enabled =                enable;
+                textBoxMax.Enabled =                enable;
+                buttonScaleApply.Enabled =          enable;
+                textBoxSensor.Enabled =             enable;
+                textBoxHighCurrent.Enabled =        enable;
+                btnHighCurrent.Enabled =            enable;
+                btnZeroCurrent.Enabled =            enable;
+                comboBoxSensor.Enabled =            enable;
             }
         }
 

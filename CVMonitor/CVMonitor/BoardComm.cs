@@ -11,13 +11,13 @@ using System.IO;
 
 namespace CVMonitorExample
 {
-    enum ControlCharacter
+    enum ControlCharacter 
     {
         STX = 0x02,
         ETX = 0x03
     }
 
-    class GatheringData
+    public class GatheringData
     {
         public DateTime DateTime { get; set; }
         public string Data { get; set; }
@@ -29,7 +29,7 @@ namespace CVMonitorExample
         }
     }
 
-    class BoardComm
+    public class BoardComm
     {
         private TcpClient _tcpClient;
         private byte[] _receiveBuffer = new byte[4096];
@@ -37,6 +37,8 @@ namespace CVMonitorExample
         int _port;
         private IPAddress _iPAddress;
         private List<GatheringData> _gatheringDatas = new List<GatheringData>();
+        private ProtocolFactory _protocolFactory = new ProtocolFactory();
+
         public delegate void OnCallback(ReceiveProtocol receive);
         public delegate void OnCallbackConnect();
         public delegate void OnCallbackWrite();
@@ -69,7 +71,7 @@ namespace CVMonitorExample
                 Array.Copy(BitConverter.GetBytes(keepAliveInterval), 0, inArray, size, size);
                 Array.Copy(BitConverter.GetBytes(retryInterval), 0, inArray, size * 2, size);
 
-                _tcpClient.Client.IOControl(IOControlCode.KeepAliveValues, inArray, null);
+                _tcpClient.Client.IOControl(IOControlCode.KeepAliveValues, inArray, null); //TCP 연결이 비활성 상태일 때에도 연결을 유지하기 위해 주기적으로 Keep-Alive패캣이르 보내는 기능을 설정
                 _tcpClient.BeginConnect(_iPAddress, _port, onCompleteConnect, _tcpClient);
             }
             catch (Exception ex)
@@ -179,7 +181,7 @@ namespace CVMonitorExample
             sendBuffer[3] = ip[1];
             sendBuffer[4] = ip[2];
             sendBuffer[5] = ip[3];
-            sendBuffer[6] = 0x00;
+            sendBuffer[6] = 0x00; //패딩으로 예상됨
             sendBuffer[7] = (byte)ControlCharacter.ETX;
 
             return Send(sendBuffer);
@@ -220,6 +222,8 @@ namespace CVMonitorExample
             }
         }
 
+        //Connection이 시작되면 비동기 데이터 받고, LogManager(10분마다 생성),
+        //Filemanager(DeletePeriod안에 생성된 것 제외 전부 삭제)타이머 스타트 
         private void onCompleteConnect(IAsyncResult iar)
         {
             try
@@ -231,7 +235,7 @@ namespace CVMonitorExample
                     TcpClient tcpc = (TcpClient)iar.AsyncState;
                     if (tcpc.Client.Connected)
                     {
-                        tcpc.EndConnect(iar);
+                        tcpc.EndConnect(iar); //tcp연결작업을 종료하고, 연결이 성공적으로 이루어졌는지 확인
                         tcpc.GetStream().BeginRead(_receiveBuffer, 0, _receiveBuffer.Length, onCompleteReadFromServer, tcpc);
                         _connected = true;
                         LogManager.Instance.StartTimer();
@@ -264,34 +268,40 @@ namespace CVMonitorExample
             }
         }
 
-        private void onCompleteReadFromServer(IAsyncResult iar)
+        private void onCompleteReadFromServer(IAsyncResult iar) //비동기로 서버로부터 데이터를 읽는 메서드
         {
             TcpClient tcpc;
             int nCountBytesReceivedFromServer;
 
             try
             {
-                if (_tcpClient == null) return;
-                tcpc = (TcpClient)iar.AsyncState;
-                nCountBytesReceivedFromServer = tcpc.GetStream().EndRead(iar);
+                if (_tcpClient == null) return;  //_tcpClient = new TcpClient(); -> Connect() 하면 !null
+                tcpc = (TcpClient)iar.AsyncState; //비동기 작업이 완료되면 객체를 전달 
+                nCountBytesReceivedFromServer = tcpc.GetStream().EndRead(iar); //비동기 읽기 작업 마무리 -> 읽은 바이트 수 가져옴 
 
                 if (nCountBytesReceivedFromServer == 0)
                 {
                     //MessageBox.Show("Connection broken.");
                     return;
                 }
-                
-                ReceiveProtocol receiveProtocol = ParsingProtocol(_receiveBuffer, nCountBytesReceivedFromServer);
 
-                OnCallbackMethod(receiveProtocol);
+                ////프로토콜 문자에 따라 메모리 할당
+                //ReceiveProtocol receiveProtocol = ParsingProtocol(_receiveBuffer, nCountBytesReceivedFromServer);
+
+                // 프로토콜을 식별하고 팩토리를 통해 객체 생성
+                char protocol = (char)_receiveBuffer[0];
+                ReceiveProtocol receiveProtocol = _protocolFactory.CreateProtocol(protocol, _receiveBuffer, nCountBytesReceivedFromServer);
+
+
+                OnCallbackMethod(receiveProtocol); //파싱된 데이터를 OnCallbackMethod로 보내서 처리, 구현-> MainForm.cs, Deligate 멀티캐스팅 
 
                 byte[] receive = new byte[nCountBytesReceivedFromServer];
                 Array.Copy(_receiveBuffer, receive, nCountBytesReceivedFromServer);
-                LogManager.Instance.AddLog(false, receive);
-                Array.Clear(_receiveBuffer, 0, _receiveBuffer.Length);
+                LogManager.Instance.AddLog(false, receive); //데이터 로깅
+                Array.Clear(_receiveBuffer, 0, _receiveBuffer.Length); // _receiveBuffer 전체 초기화
 
                 tcpc.GetStream().BeginRead(_receiveBuffer, 0, _receiveBuffer.Length, onCompleteReadFromServer, tcpc);
-
+                //데이터읽어올버퍼, 데이터 시작위치, 읽어올 최대 바이트수, 비동기 읽기 완료 됐을 때 호출될 콜백 메서드, 상태객체 
                 _connected = true; //연결 성공
             }
             catch (Exception ex)
@@ -301,36 +311,36 @@ namespace CVMonitorExample
             }
         }
 
-        private ReceiveProtocol ParsingProtocol(byte[] bytes, int receiveCount)
-        {
-            ReceiveProtocol receiveProtocol = null;
-            char protocol = (char)bytes[0];
-            switch(protocol)
-            {
-                case 'T':
-                    receiveProtocol = new ReceiveProtocol_TimeAndSamplingTime(bytes, receiveCount);
-                    break;
-                case 'L':
-                    receiveProtocol = new ReceiveProtocol_LogData(bytes, receiveCount);
-                    break;
-                case 'S':
-                    receiveProtocol = new ReceiveProtocol_GatheringData_Response(bytes, receiveCount);
-                    break;
-                case 'P':
-                    receiveProtocol = new ReceiveProtocol_GatheringData_Response(bytes, receiveCount);
-                    break;
-                case 'D':
-                    receiveProtocol = new ReceiveProtocol_GatheringData(bytes, receiveCount);
-                    break;
-                case 'V':
-                    receiveProtocol = new ReceiveProtocol_Version(bytes, receiveCount);
-                    break;
-                case 'I':
-                    receiveProtocol = new ReceiveProtocol_IP(bytes, receiveCount);
-                    break;
-            }
+        //private ReceiveProtocol ParsingProtocol(byte[] bytes, int receiveCount)
+        //{
+        //    ReceiveProtocol receiveProtocol = null;
+        //    char protocol = (char)bytes[0];
+        //    switch(protocol)
+        //    {
+        //        case 'T':
+        //            receiveProtocol = new ReceiveProtocol_TimeAndSamplingTime(bytes, receiveCount);
+        //            break;
+        //        case 'L':
+        //            receiveProtocol = new ReceiveProtocol_LogData(bytes, receiveCount);
+        //            break;
+        //        case 'S':
+        //            receiveProtocol = new ReceiveProtocol_GatheringData_Response(bytes, receiveCount);
+        //            break;
+        //        case 'P':
+        //            receiveProtocol = new ReceiveProtocol_GatheringData_Response(bytes, receiveCount);
+        //            break;
+        //        case 'D':
+        //            receiveProtocol = new ReceiveProtocol_GatheringData(bytes, receiveCount);
+        //            break;
+        //        case 'V':
+        //            receiveProtocol = new ReceiveProtocol_Version(bytes, receiveCount);
+        //            break;
+        //        case 'I':
+        //            receiveProtocol = new ReceiveProtocol_IP(bytes, receiveCount);
+        //            break;
+        //    }
 
-            return receiveProtocol;
-        }
+        //    return receiveProtocol;
+        //}
     }
 }
